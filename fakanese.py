@@ -1,5 +1,10 @@
 
 import random
+
+__license__ = 'GPLv3'
+
+__author__ = 'haxwithaxe <me@haxwithaxe.net>'
+
 COMPOUND_CONSONANTS = ['ch', 'sh', 'th']
 # 'z' removed due to easy confusion with 's' when spoken, 'y' removed due to abiguity out of context
 CONSONANTS = ['b', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x']
