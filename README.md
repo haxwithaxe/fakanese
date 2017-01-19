@@ -3,7 +3,7 @@ fakanese.py is a library for generating random human readable and pronouncable s
 
 It uses the 1 to 4 latin character syllables as the base unit of the "words". The number of characters in a syllable is random. The phonemes that are combined to make the syllables are defined as part of the library as curated sets of characters that will interact well when combined.
 
-Inspired by: http://thedailywtf.com/articles/the-automated-curse-generator.aspx
+Inspired by: http://thedailywtf.com/articles/the-automated-curse-generator
 
 # Disclaimer
 This is heavily biased towards anglophones. There are plans to make the phoneme sets configurable in a separate config file to help alleviate that shortcoming. 
