@@ -5,26 +5,26 @@ from fakanese.syllable import Syllable
 
 class Word:
 
-	def __init__(self, pool, delimeter=None, length=None):
+	def __init__(self, pool, delimiter=None, length=None):
 		self._pool = pool
-		self._delimeter = delimeter or ''
+		self._delimiter = delimiter or ''
 		self._length = length
 
-	def __get_delimeter(self, delimeter):
-		if isinstance(delimeter, str):
-			return delimeter
-		return self._delimeter
+	def __get_delimiter(self, delimiter):
+		if isinstance(delimiter, str):
+			return delimiter
+		return self._delimiter
 
 	def __get_length(self, length):
 		if isinstance(length, int):
 			return length
 		return self._length
 
-	def _get_word(self, delimeter, length):
-		return _Word(self._pool, delimeter=self.__get_delimeter(delimeter), length=self.__get_length(length))
+	def _get_word(self, delimiter, length):
+		return _Word(self._pool, delimiter=self.__get_delimiter(delimiter), length=self.__get_length(length))
 
-	def camel_case(self, length, delimeter=None, inverse=False, start_low=False):
-		word = self._get_word(delimeter, length)
+	def camel_case(self, length, delimiter=None, inverse=False, start_low=False):
+		word = self._get_word(delimiter, length)
 		if start_low:
 			word[0] = str(word[0]).lower()
 		camel_cased = str(word)
@@ -32,22 +32,22 @@ class Word:
 			return camel_cased.swapcase()
 		return camel_cased
 
-	def upper(self, length, delimeter=None):
-		word = self._get_word(delimeter, length)
+	def upper(self, length, delimiter=None):
+		word = self._get_word(delimiter, length)
 		return str(word).upper()
 
-	def random(self, length, delimeter=None):
-		word = self._get_word(delimeter, length)
+	def random(self, length, delimiter=None):
+		word = self._get_word(delimiter, length)
 		return str(word)
 
 
 
 class _Word:
 
-	def __init__(self, pool, delimeter, length):
+	def __init__(self, pool, delimiter, length):
 		self._syllables = []
 		self._pool = pool
-		self._delimeter = delimeter
+		self._delimiter = delimiter
 		self._length = length
 		self._generate_random()
 
@@ -84,4 +84,4 @@ class _Word:
 		self._syllables[index] = value
 
 	def __str__(self):
-		return self._delimeter.join([str(x) for x in self._syllables])
+		return self._delimiter.join([str(x) for x in self._syllables])
