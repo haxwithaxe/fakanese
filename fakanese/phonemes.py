@@ -8,9 +8,11 @@ INVALID_COMBOS = ('wh','gh','ei', 'ng', 'ph', 'ps', 'ts', 'yx')
 @functools.total_ordering
 class Character:
 
-	def __init__(self, character, allowed_before=None):
+	def __init__(self, character, allowed_before=None, requires=None):
 		self._value = character
 		self._allowed_before = allowed_before
+		self.requires = {'if_first_then_next': False, 'if_not_last_then_next': False}
+		self.requires.update(requires or {})
 		self.first = self
 		self.last = self
 
@@ -32,8 +34,10 @@ class Character:
 @functools.total_ordering
 class Phoneme:
 
-	def __init__(self, *characters, allowed_before=None):
+	def __init__(self, *characters, allowed_before=None, requires=None):
 		self.characters = characters
+		self.requires = {'if_first_then_next': False, 'if_not_last_then_next': False}
+		self.requires.update(requires or {})
 
 	@property
 	def last(self):
@@ -80,16 +84,16 @@ class PhonemeGroup:
 class Consonant(Character):
 
 	def __init__(self, character):
-		super().__init__(character, allowed_before=Vowel)
+		super().__init__(character, allowed_before=Vowel, requires={'if_not_last_then_next': (Vowel, Dipthong)})
 
 
 class Diagraph(Phoneme):
 
 	def __init__(self, characters):
-		super().__init__(*[Consonant(x) for x in characters])
+		super().__init__(*[Consonant(x) for x in characters], requires={'not_last': True, 'if_not_last_then_next': (Vowel,)})
 
 	def __iter__(self):
-		return iter(self.phonemes)
+		return iter(self.characters)
 
 
 class Dipthong(Phoneme):
@@ -99,7 +103,7 @@ class Dipthong(Phoneme):
 		super().__init__(*[Vowel(x) for x in characters])
 
 	def __iter__(self):
-		return iter(self.phonemes)
+		return iter(self.characters)
 
 
 class Vowel(Character):
@@ -109,8 +113,12 @@ class Vowel(Character):
 
 
 class Consonants(PhonemeGroup):
-	# 'z' removed due to easy confusion with 's' when spoken
-	# 'c', 'y', and 'q' removed due to ambiguity out of context
+	"""
+	
+	'z' removed due to easy confusion with 's' when spoken
+	'c', 'y', and 'q' removed due to ambiguity out of context
+
+	"""
 
 	def __init__(self):
 		super().__init__(('b', 'd', 'f', 'g', 'j', 'k', 'l', 'm', 'n', 'p', 'r', 's', 't',
