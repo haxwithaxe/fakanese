@@ -49,7 +49,7 @@ class Word:
 
 def get_word(pool, length, delimiter=None, format=None):
 	word = Word(pool, delimiter, length)
-	elif format.get('method') == 'upper':
+	if format.get('method') == 'upper':
 		return word.upper()
 	elif format.get('method') == 'camel_case':
 		inverse = format.get('inverse')
