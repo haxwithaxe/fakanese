@@ -23,6 +23,9 @@ class Word:
 		self._length = length
 		self._syllables = _random_syllables(self._pool, self._length)
 
+	def with_delimiter(self, delimiter):
+		return delimiter.join(str(x) for x in self._syllables)
+
 	def camel_case(self, inverse=False, start_low=False):
 		camel_cased = [str(x).title() for x in self._syllables]
 		if start_low:
