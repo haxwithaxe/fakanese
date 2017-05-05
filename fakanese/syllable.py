@@ -10,8 +10,8 @@ class Syllable:
 
 	def __init__(self, first=False, last=False):
 		self._phonemes = []
-		self._first_syllable = first
-		self._last_syllable = last
+		self._is_first_syllable = first
+		self._is_last_syllable = last
 
 	@classmethod
 	def random(cls, pool, first=False, last=False):
@@ -37,10 +37,10 @@ class Syllable:
 			return True
 		else:
 			requirements = self._phonemes[-1].requires
-			if self._first_syllable and requirements.get('if_first_then_next'):
+			if self._is_first_syllable and requirements.get('if_first_then_next'):
 				if isinstance(phoneme, requirements.get('if_first_then_next')):
 					return False
-			elif not self._last_syllable and requirements.get('if_not_last_then_next'):
+			elif not self._is_last_syllable and requirements.get('if_not_last_then_next'):
 				if not isinstance(phoneme, requirements.get('if_not_last_then_next')):
 					return False
 			if self._phonemes[-1] < phoneme:
@@ -65,8 +65,6 @@ class Syllable:
 	def __lt__(self, other):
 		if str(self.last)+str(other.first) in INVALID_COMBOS:
 			# (x) 'ew' 'h'
-			return False
-		elif str(self.last) == str(other.first):
 			return False
 		elif self.last < other.first:
 			return True

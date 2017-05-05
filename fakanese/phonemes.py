@@ -20,9 +20,13 @@ class Character:
 		return self.__class__ is other.__class__ and self._value == other._value
 
 	def __lt__(self, other):
-		if isinstance(other.first, self._allowed_before):
-			return True
-		return False
+		if not isinstance(other.first, self._allowed_before):
+			return False
+		if other.first == self.last:
+			return False
+		if other == self:
+			return False
+		return True
 
 	def __str__(self):
 		return self._value
