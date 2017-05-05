@@ -116,13 +116,13 @@ class Consonants(PhonemeGroup):
 	"""
 	
 	'z' removed due to easy confusion with 's' when spoken
-	'c', 'y', and 'q' removed due to ambiguity out of context
+	'c', 'q', 'y', and 'x' removed due to ambiguity out of context
 
 	"""
 
 	def __init__(self):
 		super().__init__(('b', 'd', 'f', 'g', 'j', 'k', 'l', 'm', 'n', 'p', 'r', 's', 't',
-			'v', 'w', 'x'), phoneme_type=Consonant)
+			'v', 'w'), phoneme_type=Consonant)
 
 
 class Diagraphs(PhonemeGroup):
@@ -142,6 +142,7 @@ class Vowels(PhonemeGroup):
 
 	def __init__(self):
 		super().__init__(('a', 'i', 'o', 'u'), phoneme_type=Vowel)
+
 
 pool = []
 pool.extend(list(Consonants()))

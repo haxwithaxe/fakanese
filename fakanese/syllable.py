@@ -1,3 +1,4 @@
+
 import functools
 import random
 
@@ -64,6 +65,8 @@ class Syllable:
 	def __lt__(self, other):
 		if str(self.last)+str(other.first) in INVALID_COMBOS:
 			# (x) 'ew' 'h'
+			return False
+		elif str(self.last) == str(other.first):
 			return False
 		elif self.last < other.first:
 			return True
